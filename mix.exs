@@ -25,12 +25,16 @@ defmodule BertGate.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    gnu_make = case System.cmd "uname", [] do
-      {"FreeBSD\n",0} -> "gmake"
-      other -> "make"
-    end
     [
+      {:bert_gate_client, github: "lastcanal/bert_gate_client"},
       {:ranch, "1.0.0", compile: gnu_make},
     ]
+  end
+
+  defp gnu_make do
+    case System.cmd "uname", [] do
+      {"FreeBSD\n",0} -> "gmake"
+      _other -> "make"
+    end
   end
 end
